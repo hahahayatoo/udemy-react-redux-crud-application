@@ -1,16 +1,11 @@
-// action は js のオブジェクトのことで、
-// オブジェクトの内部でtypeとtypeに対応する値を持つ
-// その値はユニークである必要がある
+import axios from "axios";
 
-// reducerでも利用するため、action を定数として定義しておく
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+export const READ_EVENTS = 'READ_EVENTS'
 
-// action を返す関数のことを action creater と呼ぶ
-export const increment = () => ({
-    type: INCREMENT
-})
+const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
+const QUERYSTRING = '?token=token123'
 
-export const decrement = () => ({
-    type: DECREMENT
-})
+export const readEvents = () => async dispatch => {
+    const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
+    dispatch({ type: READ_EVENTS, response })
+}
